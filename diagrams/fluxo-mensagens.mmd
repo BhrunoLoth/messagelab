@@ -1,0 +1,77 @@
+sequenceDiagram
+    participant U1 as Usuário Device 1
+    participant D1 as Device 1
+    participant Q1 as Fila Device 1
+    participant S1 as Pilha Device 1
+    participant H1 as Histórico Device 1
+    participant T1 as Árvore Device 1
+    participant MB as Message Broker
+    participant Q2 as Fila Device 2
+    participant H2 as Histórico Device 2
+    participant T2 as Árvore Device 2
+    participant D2 as Device 2
+    participant U2 as Usuário Device 2
+    
+    rect rgb(59, 130, 246, 0.1)
+        Note over U1,T1: ENVIO DE MENSAGEM - DEVICE 1
+        U1->>D1: Digite "Olá, tudo bem?"
+        D1->>Q1: enqueue(mensagem)
+        Note over Q1: Mensagem na fila<br/>Status: SENT
+        D1->>S1: push(mensagem)
+        Note over S1: Salva para UNDO
+        D1->>H1: append(mensagem)
+        Note over H1: Adiciona ao histórico
+        D1->>T1: insert(conteúdo)
+        Note over T1: Organiza na árvore
+        D1-->>U1: ✓ Mensagem enviada
+    end
+    
+    rect rgb(139, 92, 246, 0.1)
+        Note over Q1,Q2: TRANSMISSÃO VIA BROKER
+        Q1->>MB: dequeue()
+        Note over MB: Processa mensagem<br/>Status: DELIVERED
+        MB->>Q2: enqueue(mensagem)
+        Note over Q2: Mensagem recebida
+    end
+    
+    rect rgb(16, 185, 129, 0.1)
+        Note over Q2,U2: RECEBIMENTO - DEVICE 2
+        Q2->>D2: dequeue()
+        D2->>H2: append(mensagem)
+        Note over H2: Adiciona ao histórico
+        D2->>T2: insert(conteúdo)
+        Note over T2: Organiza na árvore
+        D2-->>U2: 📩 Nova mensagem!
+        Note over MB: Status: READ
+    end
+    
+    rect rgb(239, 68, 68, 0.1)
+        Note over U1,S1: OPERAÇÃO UNDO
+        U1->>D1: Clica em "Undo"
+        D1->>S1: pop()
+        S1-->>D1: Retorna última mensagem
+        D1->>D1: Remove mensagem
+        D1-->>U1: ↩️ Mensagem desfeita
+    end
+    
+    rect rgb(16, 185, 129, 0.1)
+        Note over U2,T2: RESPOSTA - DEVICE 2
+        U2->>D2: Digite "Olá! Estou bem!"
+        D2->>Q2: enqueue(mensagem)
+        D2->>H2: append(mensagem)
+        D2->>T2: insert(conteúdo)
+    end
+    
+    rect rgb(139, 92, 246, 0.1)
+        Note over Q2,Q1: TRANSMISSÃO REVERSA
+        Q2->>MB: dequeue()
+        MB->>Q1: enqueue(mensagem)
+    end
+    
+    rect rgb(59, 130, 246, 0.1)
+        Note over Q1,U1: RECEBIMENTO - DEVICE 1
+        Q1->>D1: dequeue()
+        D1->>H1: append(mensagem)
+        D1->>T1: insert(conteúdo)
+        D1-->>U1: 📩 Nova mensagem!
+    end

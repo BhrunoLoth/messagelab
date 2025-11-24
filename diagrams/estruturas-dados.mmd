@@ -1,0 +1,52 @@
+graph TB
+    subgraph "FILA - QUEUE (FIFO)"
+        Q1[Front] --> Q2[Msg 1]
+        Q2 --> Q3[Msg 2]
+        Q3 --> Q4[Msg 3]
+        Q4 --> Q5[Rear]
+        Q_OP1[enqueue] -.->|Adiciona no final| Q5
+        Q_OP2[dequeue] -.->|Remove do início| Q1
+        Q_DESC[Primeira mensagem a entrar<br/>é a primeira a sair<br/>Usado para fila de envio]
+    end
+    
+    subgraph "PILHA - STACK (LIFO)"
+        S5[Top] --> S4[Msg 3]
+        S4 --> S3[Msg 2]
+        S3 --> S2[Msg 1]
+        S2 --> S1[Bottom]
+        S_OP1[push] -.->|Adiciona no topo| S5
+        S_OP2[pop] -.->|Remove do topo| S5
+        S_DESC[Última mensagem a entrar<br/>é a primeira a sair<br/>Usado para UNDO]
+    end
+    
+    subgraph "LISTA ENCADEADA - LINKED LIST"
+        L1[Head] --> L2[Node 1]
+        L2 --> L3[Node 2]
+        L3 --> L4[Node 3]
+        L4 --> L5[Tail]
+        L5 --> L6[null]
+        L_OP1[append] -.->|Adiciona no final| L5
+        L_OP2[prepend] -.->|Adiciona no início| L1
+        L_DESC[Cada nó aponta para o próximo<br/>Acesso sequencial<br/>Usado para histórico completo]
+    end
+    
+    subgraph "ÁRVORE BINÁRIA - BINARY TREE"
+        T1[Root]
+        T1 --> T2[Left Child]
+        T1 --> T3[Right Child]
+        T2 --> T4[Left]
+        T2 --> T5[Right]
+        T3 --> T6[Left]
+        T3 --> T7[Right]
+        T_OP1[insert] -.->|Adiciona nó| T1
+        T_OP2[traverse] -.->|Percorre árvore| T1
+        T_DESC[Estrutura hierárquica<br/>Cada nó tem até 2 filhos<br/>Usado para organização]
+    end
+    
+    style Q1 fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#fff
+    style Q5 fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#fff
+    style S5 fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style S1 fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style L1 fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#fff
+    style L5 fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#fff
+    style T1 fill:#06b6d4,stroke:#0891b2,stroke-width:2px,color:#fff

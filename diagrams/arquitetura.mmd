@@ -1,0 +1,75 @@
+graph TB
+    subgraph "Sistema de Mensageria MessageLab"
+        subgraph "Device 1"
+            D1[Interface do Usuário]
+            D1Q[Fila Queue]
+            D1S[Pilha Stack]
+            D1L[Lista Encadeada]
+            D1T[Árvore Binária]
+            D1M[Mensagens]
+        end
+        
+        subgraph "Device 2"
+            D2[Interface do Usuário]
+            D2Q[Fila Queue]
+            D2S[Pilha Stack]
+            D2L[Lista Encadeada]
+            D2T[Árvore Binária]
+            D2M[Mensagens]
+        end
+        
+        subgraph "Camada de Transporte Simulada"
+            BROKER[Message Broker Simulado]
+            QUEUE1[Fila Device1 → Device2]
+            QUEUE2[Fila Device2 → Device1]
+        end
+        
+        subgraph "Estruturas de Dados"
+            QUEUE_DS[Queue - FIFO]
+            STACK_DS[Stack - LIFO]
+            LINKED_DS[Linked List - Histórico]
+            TREE_DS[Binary Tree - Organização]
+        end
+    end
+    
+    %% Fluxo Device 1
+    D1 -->|Enviar Mensagem| D1Q
+    D1Q -->|Enfileirar| QUEUE1
+    D1 -->|Undo| D1S
+    D1S -->|Pop| D1M
+    D1M -->|Append| D1L
+    D1M -->|Insert| D1T
+    
+    %% Fluxo Device 2
+    D2 -->|Enviar Mensagem| D2Q
+    D2Q -->|Enfileirar| QUEUE2
+    D2 -->|Undo| D2S
+    D2S -->|Pop| D2M
+    D2M -->|Append| D2L
+    D2M -->|Insert| D2T
+    
+    %% Comunicação entre dispositivos
+    QUEUE1 -->|Dequeue| D2M
+    QUEUE2 -->|Dequeue| D1M
+    
+    %% Broker
+    BROKER -.->|Gerencia| QUEUE1
+    BROKER -.->|Gerencia| QUEUE2
+    
+    %% Estruturas
+    D1Q -.->|Implementa| QUEUE_DS
+    D2Q -.->|Implementa| QUEUE_DS
+    D1S -.->|Implementa| STACK_DS
+    D2S -.->|Implementa| STACK_DS
+    D1L -.->|Implementa| LINKED_DS
+    D2L -.->|Implementa| LINKED_DS
+    D1T -.->|Implementa| TREE_DS
+    D2T -.->|Implementa| TREE_DS
+    
+    style D1 fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#fff
+    style D2 fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+    style BROKER fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff
+    style QUEUE_DS fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff
+    style STACK_DS fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff
+    style LINKED_DS fill:#ec4899,stroke:#db2777,stroke-width:2px,color:#fff
+    style TREE_DS fill:#06b6d4,stroke:#0891b2,stroke-width:2px,color:#fff
