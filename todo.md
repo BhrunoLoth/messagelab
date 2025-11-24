@@ -85,3 +85,29 @@
 - [x] Criar roteiro completo do pitch (5-10 min)
 - [x] Exportar slides para PDF
 - [x] Criar checklist de preparação para o dia
+
+## Deploy e Transformação em Produto
+
+- [x] Configurar GitHub Pages para deploy
+- [x] Publicar MessageLab online
+- [ ] Testar URL público
+- [x] Atualizar slides focando em PRODUTO
+- [x] Criar seção "Para que serve"
+- [x] Criar seção "Quem pode usar"
+- [x] Atualizar roteiro de pitch para produto
+- [x] Adicionar frases sobre deploy online
+
+## Remoção Final de "Raptur"
+
+- [ ] Atualizar título da aba do navegador (index.html)
+- [ ] Atualizar metadados do projeto
+- [ ] Verificar todas as ocorrências restantes de "Raptur"
+- [ ] Testar e confirmar remoção completa
+
+## Atualização do GitHub
+
+- [ ] Copiar código atualizado para pasta do GitHub
+- [ ] Fazer commit das mudanças
+- [ ] Push para repositório remoto
+- [ ] Rebuild e deploy no GitHub Pages
+- [ ] Verificar site atualizado online
